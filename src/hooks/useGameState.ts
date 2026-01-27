@@ -17,8 +17,8 @@ export function useGameState() {
     resetGame
   } = useGameStore()
 
-  const startNewGame = (challengeId: number, difficulty: Difficulty) => {
-    startGame(challengeId, difficulty)
+  const startNewGame = (challengeId: number) => {
+    startGame(challengeId)
   }
 
   const proceedToNextAction = (clearingCardCount?: number) => {

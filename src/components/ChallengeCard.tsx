@@ -14,18 +14,25 @@ export function ChallengeCard({ challenge, selected, onClick }: ChallengeCardPro
   return (
     <button
       onClick={onClick}
-      className={`card text-left transition-all duration-200 ${
+      className={`card text-left transition-all duration-200 flex flex-col items-start justify-start h-full ${
         selected
           ? 'ring-4 ring-forest-500 bg-forest-50'
           : 'hover:shadow-xl hover:scale-105'
       }`}
     >
-      <div className="flex items-start justify-between mb-2">
-        <h3 className="text-lg font-bold text-forest-800">
-          {challenge.id}. {challenge.title[lang]}
-        </h3>
+      <div className="flex items-start justify-between mb-2 w-full">
+        <div className="flex items-center gap-2 flex-1">
+          <h3 className="text-lg font-bold text-forest-800">
+            {challenge.id}. {challenge.title[lang]}
+          </h3>
+          {challenge.specialSetup && (
+            <span className="bg-moor-200 text-moor-800 px-2 py-1 rounded text-xs font-semibold whitespace-nowrap">
+              ⚠ 특수 설정
+            </span>
+          )}
+        </div>
         {selected && (
-          <span className="text-forest-600 text-2xl">✓</span>
+          <span className="text-forest-600 text-2xl ml-2">✓</span>
         )}
       </div>
       <p className="text-sm text-forest-600 mb-3">
@@ -42,11 +49,6 @@ export function ChallengeCard({ challenge, selected, onClick }: ChallengeCardPro
           금 {challenge.minScore.gold}
         </span>
       </div>
-      {challenge.specialSetup && (
-        <div className="mt-2 p-2 bg-moor-100 rounded text-xs text-moor-800">
-          ⚠ {challenge.specialSetup}
-        </div>
-      )}
     </button>
   )
 }

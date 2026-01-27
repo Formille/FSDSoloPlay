@@ -18,36 +18,22 @@ export function AutomaActionDisplay({ card }: AutomaActionDisplayProps) {
   return (
     <div className="space-y-4">
       {/* Step 1: Add Cards */}
-      <div className="card bg-forest-50 border-2 border-forest-300">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-forest-600 text-white flex items-center justify-center font-bold text-lg">
-            1
-          </div>
-          <div className="flex-1">
-            <p className="text-forest-800 font-semibold">
-              {t('play.step1', { count: card.addCount })}
-            </p>
-            <div className="flex gap-2 mt-2">
-              {Array.from({ length: card.addCount }).map((_, i) => (
-                <div
-                  key={i}
-                  className="w-12 h-16 bg-tree-300 rounded border-2 border-tree-500 flex items-center justify-center"
-                >
-                  <span className="text-tree-800 font-bold">+</span>
-                </div>
-              ))}
+      {card.addCount > 0 && (
+        <div className="card bg-forest-50 border-2 border-forest-300">
+          <div className="flex items-center gap-3">
+            <div className="flex-1">
+              <p className="text-forest-800 font-semibold">
+                {t('play.step1', { count: card.addCount })}
+              </p>
             </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Step 2: Remove Cards */}
       {card.removeCount > 0 && (
         <div className="card bg-moor-50 border-2 border-moor-300">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-moor-600 text-white flex items-center justify-center font-bold text-lg">
-              2
-            </div>
             <div className="flex-1">
               <p className="text-moor-800 font-semibold">
                 {t('play.step2', {
@@ -76,13 +62,10 @@ export function AutomaActionDisplay({ card }: AutomaActionDisplayProps) {
         </div>
       )}
 
-      {/* Step 3: Burn Card */}
+      {/* Step 3: Burn Card - Only shown when burnTopCard is true */}
       {card.burnTopCard && (
         <div className="card bg-tree-50 border-2 border-tree-300">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-tree-600 text-white flex items-center justify-center font-bold text-lg">
-              3
-            </div>
             <div className="flex-1">
               <p className="text-tree-800 font-semibold">
                 {t('play.step3')}

@@ -7,18 +7,29 @@
     "title": "Game Setup",
     "selectChallenge": "Select Challenge",
     "selectDifficulty": "Select Difficulty",
+    "scoreRequirements": "Score Requirements",
+    "medalDeterminedByScore": "Medals are determined by your final score after the game ends",
     "bronze": "Bronze",
     "silver": "Silver",
     "gold": "Gold",
     "startGame": "Start Game",
     "cave3Reminder": "Place Cave 3 card in front of you before starting",
     "specialSetup": "Special Setup",
-    "adderReminder": "Start with a random Adder card in your hand"
+    "adderReminder": "Start with a random Adder card in your hand",
+    "gameSetupGuide": "How to Set Up the Game",
+    "gameSetupIntro": "Set up the game as normal, with the following changes:",
+    "gameSetupStep1": "Return 45 cards from the draw pile to the game box (as in a 2-player game)",
+    "gameSetupStep2": "You need only 1 winter card, which you shuffle with the last 10 cards of the draw pile",
+    "gameSetupStep3": "Draw 6 cards into your hand and place cave 3 in front of you",
+    "gameSetupStep4": "Shuffle the 20 Automa cards and place them in a face-down Automa deck",
+    "gameSetupStep5": "Choose a challenge",
+    "gameSetupStep6": "Carry out the action of your cave and start playing"
   },
   "play": {
     "title": "Anna's Turn",
     "round": "Round",
     "remainingCards": "Remaining Cards",
+    "playTime": "Play Time",
     "currentAction": "Current Action",
     "step1": "Add {{count}} cards from deck to clearing",
     "step2": "Remove {{count}} cards from clearing ({{direction}})",
@@ -43,13 +54,18 @@
     "dartmoorPonyNote": "Scores 5 points (instead of 15) if less than 8 moors",
     "goalMet": "Challenge Goal Achieved",
     "goalNotMet": "Challenge Goal Not Met",
+    "challengeChecklist": "Checklist",
+    "challengeChecklistNote": "Please verify that you meet the above condition, then check the \"Challenge Goal Achieved\" checkbox below",
+    "medalScoreRequirements": "Medal Score Requirements",
     "calculate": "Calculate Score",
+    "saveRecord": "Save Record",
     "victory": "Victory!",
     "defeat": "Defeat",
     "victoryMessage": "Congratulations! You earned the {{difficulty}} medal!",
     "defeatMessage": "Better luck next time!",
     "scoreRequired": "Required Score",
     "scoreAchieved": "Achieved Score",
+    "noMedalMessage": "Your score was not high enough to earn a medal.",
     "wingedKingdomCheck": "Do you have at least 2 birds on every tree, bush, and moor?"
   },
   "history": {
@@ -81,6 +97,12 @@
     "cancel": "Cancel",
     "confirm": "Confirm",
     "loading": "Loading..."
+  },
+  "nav": {
+    "setup": "Game Setup",
+    "play": "Play",
+    "scoring": "Scoring",
+    "history": "History"
   }
 }
 

@@ -5,11 +5,12 @@ import { initializeGame, getNextAutomaCard, processAutomaAction } from '../servi
 
 interface GameStore extends GameState {
   // Actions
-  startGame: (challengeId: number, difficulty: Difficulty) => void
+  startGame: (challengeId: number) => void
   nextAction: (clearingCardCount?: number) => void
   endGame: () => void
   resetGame: () => void
   addActionLog: (log: ActionLog) => void
+  setPhase: (phase: GamePhase) => void
 }
 
 const initialState: GameState = {
@@ -20,7 +21,8 @@ const initialState: GameState = {
   automaDiscard: [],
   currentAutomaCard: null,
   round: 1,
-  actionHistory: []
+  actionHistory: [],
+  startTime: null
 }
 
 export const useGameStore = create<GameStore>()(
@@ -28,12 +30,13 @@ export const useGameStore = create<GameStore>()(
     (set, get) => ({
       ...initialState,
 
-      startGame: (challengeId: number, difficulty: Difficulty) => {
+      startGame: (challengeId: number) => {
         const gameInit = initializeGame()
         set({
           phase: 'playing',
           challengeId,
-          difficulty,
+          difficulty: null,
+          startTime: new Date().toISOString(),
           ...gameInit
         })
       },
@@ -73,13 +76,20 @@ export const useGameStore = create<GameStore>()(
       },
 
       resetGame: () => {
-        set(initialState)
+        set({
+          ...initialState,
+          startTime: null
+        })
       },
 
       addActionLog: (log: ActionLog) => {
         set(state => ({
           actionHistory: [...state.actionHistory, log]
         }))
+      },
+
+      setPhase: (phase: GamePhase) => {
+        set({ phase })
       }
     }),
     {
@@ -92,7 +102,8 @@ export const useGameStore = create<GameStore>()(
         automaDiscard: state.automaDiscard,
         currentAutomaCard: state.currentAutomaCard,
         round: state.round,
-        actionHistory: state.actionHistory
+        actionHistory: state.actionHistory,
+        startTime: state.startTime
       })
     }
   )

@@ -7,20 +7,31 @@
     "title": "게임 설정",
     "selectChallenge": "도전 과제 선택",
     "selectDifficulty": "난이도 선택",
+    "scoreRequirements": "점수 기준",
+    "medalDeterminedByScore": "게임 종료 후 획득한 점수에 따라 메달이 결정됩니다",
     "bronze": "동메달",
     "silver": "은메달",
     "gold": "금메달",
     "startGame": "게임 시작",
     "cave3Reminder": "굴 3(Cave 3) 카드를 앞에 놓고 시작하세요",
     "specialSetup": "특수 설정",
-    "adderReminder": "무작위 살무사(Adder) 카드 1장을 손에 들고 게임 시작하세요"
+    "adderReminder": "무작위 살무사(Adder) 카드 1장을 손에 들고 게임 시작하세요",
+    "gameSetupGuide": "게임 설정 방법",
+    "gameSetupIntro": "일반 게임 설정과 동일하게 시작하되, 다음 변경사항을 적용합니다:",
+    "gameSetupStep1": "뽑기 더미에서 45장을 게임 박스로 반환합니다 (2인 게임과 동일)",
+    "gameSetupStep2": "겨울 카드는 1장만 필요하며, 뽑기 더미의 마지막 10장과 섞습니다",
+    "gameSetupStep3": "손에 6장을 뽑고 굴 3(Cave 3) 카드를 앞에 놓습니다",
+    "gameSetupStep4": "Automa 카드 20장을 섞어서 뒷면이 보이도록 Automa 덱에 놓습니다",
+    "gameSetupStep5": "도전 과제를 선택합니다",
+    "gameSetupStep6": "굴의 행동을 수행하고 게임을 시작합니다"
   },
   "play": {
     "title": "안나의 턴",
     "round": "라운드",
     "remainingCards": "남은 카드",
+    "playTime": "플레이 시간",
     "currentAction": "현재 행동",
-    "step1": "덱에서 {{count}}장을 공터에 추가하세요",
+    "step1": "덱에서 {{count}}장을 공터의 가장 오른쪽에 순서대로 추가하세요.",
     "step2": "공터의 {{direction}}에서부터 {{count}}장을 제거하세요",
     "step3": "덱 맨 위 1장을 제거하세요",
     "leftToRight": "왼쪽",
@@ -43,13 +54,18 @@
     "dartmoorPonyNote": "습지 8개 미만 시 15점 → 5점",
     "goalMet": "도전 과제 목표 달성",
     "goalNotMet": "도전 과제 목표 미달성",
+    "challengeChecklist": "체크리스트",
+    "challengeChecklistNote": "위 조건을 충족했는지 확인한 후 아래 \"도전 과제 목표 달성\" 체크박스를 선택하세요",
+    "medalScoreRequirements": "메달 점수 기준",
     "calculate": "점수 계산",
+    "saveRecord": "기록 저장",
     "victory": "승리!",
     "defeat": "패배",
     "victoryMessage": "축하합니다! {{difficulty}} 메달을 획득했습니다!",
     "defeatMessage": "아쉽습니다. 다음에 다시 도전해보세요.",
     "scoreRequired": "필요 점수",
     "scoreAchieved": "획득 점수",
+    "noMedalMessage": "점수가 부족하여 메달을 획득하지 못했습니다.",
     "wingedKingdomCheck": "모든 나무, 관목, 습지에 새가 최소 2마리씩 배치되어 있습니까?"
   },
   "history": {
@@ -81,6 +97,12 @@
     "cancel": "취소",
     "confirm": "확인",
     "loading": "로딩 중..."
+  },
+  "nav": {
+    "setup": "게임 설정",
+    "play": "플레이",
+    "scoring": "점수 계산",
+    "history": "기록"
   }
 }
 

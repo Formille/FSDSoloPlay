@@ -57,21 +57,46 @@ export function calculateSpecialCardScores(
 }
 
 /**
+ * 점수에 따라 메달 결정
+ */
+export function determineMedal(score: number, challengeId: number): Difficulty | null {
+  const challenge = getChallengeById(challengeId)
+  if (!challenge) return null
+  
+  // 점수가 높은 메달부터 확인
+  if (score >= challenge.minScore.gold) {
+    return 'gold'
+  } else if (score >= challenge.minScore.silver) {
+    return 'silver'
+  } else if (score >= challenge.minScore.bronze) {
+    return 'bronze'
+  }
+  
+  return null
+}
+
+/**
  * 승리 조건 검증
  */
 export function checkVictory(
   score: number,
   challengeId: number,
-  difficulty: Difficulty,
   goalMet: boolean
-): boolean {
+): {
+  isVictory: boolean
+  medal: Difficulty | null
+} {
   const challenge = getChallengeById(challengeId)
-  if (!challenge) return false
+  if (!challenge) {
+    return { isVictory: false, medal: null }
+  }
   
-  const minScore = challenge.minScore[difficulty]
+  const medal = determineMedal(score, challengeId)
   
-  // 두 조건을 모두 충족해야 승리
-  return score >= minScore && goalMet
+  // 목표를 달성하고 메달을 획득해야 승리
+  const isVictory = medal !== null && goalMet
+  
+  return { isVictory, medal }
 }
 
 /**

@@ -20,7 +20,7 @@
     "round": "라운드",
     "remainingCards": "남은 카드",
     "currentAction": "현재 행동",
-    "step1": "덱에서 {{count}}장을 공터에 추가하세요",
+    "step1": "덱에서 {{count}}장을 공터의 가장 오른쪽에 순서대로 추가하세요.",
     "step2": "공터의 {{direction}}에서부터 {{count}}장을 제거하세요",
     "step3": "덱 맨 위 1장을 제거하세요",
     "leftToRight": "왼쪽",

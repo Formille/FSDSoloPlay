@@ -7,7 +7,7 @@ export interface AutomaCard {
   addCount: number // 1-3
   removeCount: number // 0-2
   removeDirection: RemoveDirection
-  burnTopCard: boolean // 항상 true
+  burnTopCard: boolean // 더미에서 카드를 제거할 때 true
 }
 
 export interface Challenge {
@@ -38,6 +38,7 @@ export interface GameState {
   currentAutomaCard: AutomaCard | null
   round: number
   actionHistory: ActionLog[]
+  startTime: string | null
 }
 
 export interface ActionLog {

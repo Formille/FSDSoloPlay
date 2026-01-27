@@ -4,7 +4,7 @@ export const challenges: Challenge[] = [
   {
     id: 1,
     title: {
-      ko: 'Water Stripper',
+      ko: '잠자리 연못',
       en: 'Water Stripper'
     },
     description: {
@@ -21,7 +21,7 @@ export const challenges: Challenge[] = [
   {
     id: 2,
     title: {
-      ko: 'Mire Protection',
+      ko: '습지 보호구역',
       en: 'Mire Protection'
     },
     description: {
@@ -38,7 +38,7 @@ export const challenges: Challenge[] = [
   {
     id: 3,
     title: {
-      ko: 'Treetop Dwellers',
+      ko: '나무 위 합창단',
       en: 'Treetop Dwellers'
     },
     description: {
@@ -55,7 +55,7 @@ export const challenges: Challenge[] = [
   {
     id: 4,
     title: {
-      ko: 'Paw Prints',
+      ko: '숲의 발자국',
       en: 'Paw Prints'
     },
     description: {
@@ -72,7 +72,7 @@ export const challenges: Challenge[] = [
   {
     id: 5,
     title: {
-      ko: 'Forest Gliders',
+      ko: '밤의 비행사',
       en: 'Forest Gliders'
     },
     description: {
@@ -89,7 +89,7 @@ export const challenges: Challenge[] = [
   {
     id: 6,
     title: {
-      ko: 'Precious Moor',
+      ko: '보석 같은 습지',
       en: 'Precious Moor'
     },
     description: {
@@ -106,11 +106,11 @@ export const challenges: Challenge[] = [
   {
     id: 7,
     title: {
-      ko: 'Reptile Trail',
+      ko: '살무사의 자취',
       en: 'Reptile Trail'
     },
     description: {
-      ko: '숲에 있는 살무사(Adder) 한 장으로 최소 10점 획득',
+      ko: '숲에 있는 살무사 한 장으로 최소 10점 획득',
       en: 'Score at least 10 points from an Adder in your forest.'
     },
     minScore: {
@@ -119,12 +119,12 @@ export const challenges: Challenge[] = [
       gold: 325
     },
     validationType: 'score',
-    specialSetup: '무작위 살무사(Adder) 카드 1장을 손에 들고 게임 시작'
+    specialSetup: '무작위 살무사 카드 1장을 손에 들고 게임 시작'
   },
   {
     id: 8,
     title: {
-      ko: 'Species Grove',
+      ko: '생명의 터전',
       en: 'Species Grove'
     },
     description: {
@@ -141,11 +141,11 @@ export const challenges: Challenge[] = [
   {
     id: 9,
     title: {
-      ko: 'Crawler',
+      ko: '숲의 작은 주인',
       en: 'Crawler'
     },
     description: {
-      ko: '곤충(Insect) 최소 10마리 보유',
+      ko: '곤충 최소 10마리 보유',
       en: 'Have at least 10 insects in your forest.'
     },
     minScore: {
@@ -158,11 +158,11 @@ export const challenges: Challenge[] = [
   {
     id: 10,
     title: {
-      ko: 'Forest Spawners',
+      ko: '물가의 생명들',
       en: 'Forest Spawners'
     },
     description: {
-      ko: '양서류(Amphibian) 최소 6마리 보유',
+      ko: '양서류 최소 6마리 보유',
       en: 'Have at least 6 amphibians in your forest.'
     },
     minScore: {
@@ -175,11 +175,11 @@ export const challenges: Challenge[] = [
   {
     id: 11,
     title: {
-      ko: 'Plant Grove',
+      ko: '초록빛 덤불',
       en: 'Plant Grove'
     },
     description: {
-      ko: '식물(Plant) 최소 12개 보유',
+      ko: '식물 최소 12개 보유',
       en: 'Have at least 12 plants in your forest.'
     },
     minScore: {
@@ -192,11 +192,11 @@ export const challenges: Challenge[] = [
   {
     id: 12,
     title: {
-      ko: 'Hoof Prints',
+      ko: '발굽 소리',
       en: 'Hoof Prints'
     },
     description: {
-      ko: '굽이 있는 동물(Cloven-hoofed) 최소 6마리 보유',
+      ko: '굽이 있는 동물 최소 6마리 보유',
       en: 'Have at least 6 cloven-hoofed animals in your forest.'
     },
     minScore: {
@@ -209,11 +209,11 @@ export const challenges: Challenge[] = [
   {
     id: 13,
     title: {
-      ko: 'Mice Grove',
+      ko: '생쥐 마을',
       en: 'Mice Grove'
     },
     description: {
-      ko: '쥐(Mouse) 최소 8마리 보유',
+      ko: '쥐 최소 8마리 보유',
       en: 'Have at least 8 mice in your forest.'
     },
     minScore: {
@@ -226,11 +226,11 @@ export const challenges: Challenge[] = [
   {
     id: 14,
     title: {
-      ko: 'Cave Hideout',
+      ko: '아늑한 은신처',
       en: 'Cave Hideout'
     },
     description: {
-      ko: '굴(Cave)에 카드 최소 15장 보유',
+      ko: '동굴에 카드 최소 15장 보유',
       en: 'Have at least 15 cards in your cave.'
     },
     minScore: {
@@ -243,7 +243,7 @@ export const challenges: Challenge[] = [
   {
     id: 15,
     title: {
-      ko: 'Winged Kingdom',
+      ko: '새들의 낙원',
       en: 'Winged Kingdom'
     },
     description: {

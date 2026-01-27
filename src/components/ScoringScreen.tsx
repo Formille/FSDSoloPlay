@@ -3,26 +3,31 @@ import { useTranslation } from 'react-i18next'
 import { useGameState } from '../hooks/useGameState'
 import { ScoreInputForm } from './ScoreInputForm'
 import { ScoreInput, Difficulty } from '../types'
-import { checkVictory } from '../services/scoring'
+import { checkVictory, determineMedal } from '../services/scoring'
 import { getChallengeById } from '../data/challenges'
 import { saveGameHistory } from '../services/history'
 import { LanguageSwitcher } from './LanguageSwitcher'
 import { VictoryCertificate } from './VictoryCertificate'
 import { GameHistory } from '../types'
 
-export function ScoringScreen() {
+interface ScoringScreenProps {
+  onGoToHistory?: () => void
+}
+
+export function ScoringScreen({ onGoToHistory }: ScoringScreenProps) {
   const { t, i18n } = useTranslation()
   const lang = i18n.language as 'ko' | 'en'
-  const { challengeId, difficulty, clearGame } = useGameState()
+  const { challengeId, clearGame } = useGameState()
   const [result, setResult] = useState<{
     isVictory: boolean
     score: number
-    requiredScore: number
+    medal: Difficulty | null
+    requiredScore: number | null
     history: GameHistory
   } | null>(null)
   const [showCertificate, setShowCertificate] = useState(false)
 
-  if (!challengeId || !difficulty) {
+  if (!challengeId) {
     return (
       <div className="min-h-screen bg-forest-50 flex items-center justify-center">
         <p className="text-forest-600">{t('common.loading')}</p>
@@ -39,14 +44,13 @@ export function ScoringScreen() {
     )
   }
 
-  const requiredScore = challenge.minScore[difficulty]
-
   const handleScoreSubmit = (input: ScoreInput, adjustedScore: number) => {
-    const isVictory = checkVictory(adjustedScore, challengeId, difficulty, input.goalMet)
+    const { isVictory, medal } = checkVictory(adjustedScore, challengeId, input.goalMet)
+    const requiredScore = medal ? challenge.minScore[medal] : null
 
     const savedHistory = saveGameHistory({
       challengeId,
-      difficulty: difficulty as Difficulty,
+      difficulty: medal || 'bronze', // 메달이 없어도 기록을 위해 기본값 사용
       score: adjustedScore,
       goalMet: input.goalMet,
       isVictory
@@ -55,6 +59,7 @@ export function ScoringScreen() {
     setResult({
       isVictory,
       score: adjustedScore,
+      medal,
       requiredScore,
       history: savedHistory
     })
@@ -96,7 +101,7 @@ export function ScoringScreen() {
             <ScoreInputForm
               onSubmit={handleScoreSubmit}
               challengeId={challengeId}
-              difficulty={difficulty}
+              onSaveAndGoToHistory={onGoToHistory}
             />
           </section>
         )}
@@ -121,13 +126,32 @@ export function ScoringScreen() {
                 <p className="text-lg text-forest-700">
                   {t('scoring.scoreAchieved')}: <strong>{result.score}점</strong>
                 </p>
-                <p className="text-lg text-forest-700">
-                  {t('scoring.scoreRequired')}: <strong>{result.requiredScore}점</strong>
-                </p>
+                {result.medal && (
+                  <div className="flex items-center justify-center gap-2">
+                    <span className="text-3xl">
+                      {result.medal === 'bronze' && '🥉'}
+                      {result.medal === 'silver' && '🥈'}
+                      {result.medal === 'gold' && '🥇'}
+                    </span>
+                    <p className="text-lg text-forest-700">
+                      {t(`setup.${result.medal}`)} 메달 획득!
+                    </p>
+                  </div>
+                )}
+                {result.requiredScore && (
+                  <p className="text-lg text-forest-700">
+                    {t('scoring.scoreRequired')}: <strong>{result.requiredScore}점</strong>
+                  </p>
+                )}
               </div>
-              {result.isVictory && (
+              {result.isVictory && result.medal && (
                 <p className="text-xl text-forest-800 font-semibold">
-                  {t('scoring.victoryMessage', { difficulty: t(`setup.${difficulty}`) })}
+                  {t('scoring.victoryMessage', { difficulty: t(`setup.${result.medal}`) })}
+                </p>
+              )}
+              {!result.isVictory && result.medal === null && (
+                <p className="text-xl text-moor-800 font-semibold">
+                  {t('scoring.noMedalMessage')}
                 </p>
               )}
               {!result.isVictory && (

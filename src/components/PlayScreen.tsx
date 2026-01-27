@@ -1,17 +1,39 @@
+import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useGameState } from '../hooks/useGameState'
 import { AutomaActionDisplay } from './AutomaActionDisplay'
 import { LanguageSwitcher } from './LanguageSwitcher'
+import { useGameStore } from '../store/gameStore'
 
 export function PlayScreen() {
   const { t } = useTranslation()
   const {
     currentAutomaCard,
-    round,
     remainingCards,
     proceedToNextAction,
     finishGame
   } = useGameState()
+  const startTime = useGameStore(state => state.startTime)
+  const [playTime, setPlayTime] = useState<string>('00:00')
+
+  useEffect(() => {
+    if (!startTime) return
+
+    const updatePlayTime = () => {
+      const now = new Date()
+      const start = new Date(startTime)
+      const diff = Math.floor((now.getTime() - start.getTime()) / 1000) // 초 단위
+      
+      const minutes = Math.floor(diff / 60)
+      const seconds = diff % 60
+      setPlayTime(`${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`)
+    }
+
+    updatePlayTime()
+    const interval = setInterval(updatePlayTime, 1000)
+
+    return () => clearInterval(interval)
+  }, [startTime])
 
   if (!currentAutomaCard) {
     return (
@@ -40,10 +62,10 @@ export function PlayScreen() {
             </h1>
             <div className="flex gap-4 text-forest-600">
               <span>
-                {t('play.round')}: {round}
+                {t('play.remainingCards')}: {remainingCards}
               </span>
               <span>
-                {t('play.remainingCards')}: {remainingCards}
+                {t('play.playTime')}: {playTime}
               </span>
             </div>
           </div>
@@ -69,7 +91,16 @@ export function PlayScreen() {
           
           <button
             onClick={finishGame}
-            className="btn-secondary w-full text-xl py-4"
+            className="w-full text-xl py-4 rounded-lg font-semibold 
+                       bg-gradient-to-br from-sky-50 to-white 
+                       border-2 border-sky-200 
+                       text-sky-700 
+                       hover:from-sky-100 hover:to-sky-50 hover:border-sky-300 
+                       active:from-sky-200 active:to-sky-100 
+                       transition-all duration-200 
+                       touch-manipulation
+                       transform hover:scale-105 active:scale-95
+                       shadow-sm hover:shadow-md"
           >
             {t('play.winterCard')}
           </button>

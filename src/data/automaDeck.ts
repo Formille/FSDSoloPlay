@@ -55,40 +55,40 @@ export function generateAutomaDeck(): AutomaCard[] {
     })
   }
   
-  // 5. 공터 왼쪽에서부터 2장 제거 : 1장
+  // 5. 공터 왼쪽에서부터 2장 제거 : 1장 (더미에서 제거하지 않음)
   cards.push({
     id: cardId++,
     addCount: 0,
     removeCount: 2,
     removeDirection: 'left_to_right',
-    burnTopCard: true
+    burnTopCard: false
   })
   
-  // 6. 공터 오른쪽에서부터 2장 제거 : 1장
+  // 6. 공터 오른쪽에서부터 2장 제거 : 1장 (더미에서 제거하지 않음)
   cards.push({
     id: cardId++,
     addCount: 0,
     removeCount: 2,
     removeDirection: 'right_to_left',
-    burnTopCard: true
+    burnTopCard: false
   })
   
-  // 7. 공터 왼쪽에서부터 3장 제거 : 1장
+  // 7. 공터 왼쪽에서부터 3장 제거 : 1장 (더미에서 제거하지 않음)
   cards.push({
     id: cardId++,
     addCount: 0,
     removeCount: 3,
     removeDirection: 'left_to_right',
-    burnTopCard: true
+    burnTopCard: false
   })
   
-  // 8. 공터 오른쪽에서부터 3장 제거 : 1장
+  // 8. 공터 오른쪽에서부터 3장 제거 : 1장 (더미에서 제거하지 않음)
   cards.push({
     id: cardId++,
     addCount: 0,
     removeCount: 3,
     removeDirection: 'right_to_left',
-    burnTopCard: true
+    burnTopCard: false
   })
   
   // 9. 공터 왼쪽에서부터 3장 제거 + 더미에서 1장 제거: 1장

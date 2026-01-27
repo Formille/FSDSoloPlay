@@ -12,15 +12,14 @@ export function SetupScreen() {
   const { startNewGame } = useGameState()
   
   const [selectedChallengeId, setSelectedChallengeId] = useState<number | null>(null)
-  const [selectedDifficulty, setSelectedDifficulty] = useState<Difficulty | null>(null)
 
   const selectedChallenge = selectedChallengeId
     ? challenges.find(c => c.id === selectedChallengeId)
     : null
 
   const handleStartGame = () => {
-    if (selectedChallengeId && selectedDifficulty) {
-      startNewGame(selectedChallengeId, selectedDifficulty)
+    if (selectedChallengeId) {
+      startNewGame(selectedChallengeId)
     }
   }
 
@@ -55,39 +54,59 @@ export function SetupScreen() {
           </div>
         </section>
 
-        {/* Difficulty Selection */}
-        <section className="mb-8">
-          <h2 className="text-2xl font-semibold text-forest-800 mb-4">
-            {t('setup.selectDifficulty')}
-          </h2>
-          <div className="flex gap-4">
-            {(['bronze', 'silver', 'gold'] as Difficulty[]).map(difficulty => (
-              <button
-                key={difficulty}
-                onClick={() => setSelectedDifficulty(difficulty)}
-                className={`flex-1 card text-center transition-all ${
-                  selectedDifficulty === difficulty
-                    ? 'ring-4 ring-forest-500 bg-forest-50'
-                    : 'hover:shadow-xl'
-                }`}
-              >
-                <div className="text-4xl mb-2">
-                  {difficulty === 'bronze' && '🥉'}
-                  {difficulty === 'silver' && '🥈'}
-                  {difficulty === 'gold' && '🥇'}
-                </div>
-                <h3 className="text-xl font-bold text-forest-800 mb-2">
-                  {t(`setup.${difficulty}`)}
-                </h3>
-                {selectedChallenge && (
+        {/* Game Setup Guide */}
+        {selectedChallenge && (
+          <section className="mb-8">
+            <h2 className="text-2xl font-semibold text-forest-800 mb-4">
+              {t('setup.gameSetupGuide')}
+            </h2>
+            <div className="card bg-forest-50 border-2 border-forest-300">
+              <p className="text-forest-800 mb-4 font-semibold">
+                {t('setup.gameSetupIntro')}
+              </p>
+              <ol className="space-y-3 text-forest-700 list-decimal list-inside">
+                <li>{t('setup.gameSetupStep1')}</li>
+                <li>{t('setup.gameSetupStep2')}</li>
+                <li>{t('setup.gameSetupStep3')}</li>
+                <li>{t('setup.gameSetupStep4')}</li>
+                <li>{t('setup.gameSetupStep5')}</li>
+                <li>{t('setup.gameSetupStep6')}</li>
+              </ol>
+            </div>
+          </section>
+        )}
+
+        {/* Score Requirements Info */}
+        {selectedChallenge && (
+          <section className="mb-8">
+            <h2 className="text-2xl font-semibold text-forest-800 mb-4">
+              {t('setup.scoreRequirements')}
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {(['bronze', 'silver', 'gold'] as Difficulty[]).map(difficulty => (
+                <div
+                  key={difficulty}
+                  className="card text-center"
+                >
+                  <div className="text-4xl mb-2">
+                    {difficulty === 'bronze' && '🥉'}
+                    {difficulty === 'silver' && '🥈'}
+                    {difficulty === 'gold' && '🥇'}
+                  </div>
+                  <h3 className="text-xl font-bold text-forest-800 mb-2">
+                    {t(`setup.${difficulty}`)}
+                  </h3>
                   <p className="text-sm text-forest-600">
-                    {t('scoring.scoreRequired')}: {selectedChallenge.minScore[difficulty]}
+                    {t('scoring.scoreRequired')}: {selectedChallenge.minScore[difficulty]}점
                   </p>
-                )}
-              </button>
-            ))}
-          </div>
-        </section>
+                </div>
+              ))}
+            </div>
+            <p className="text-sm text-forest-600 mt-4 text-center">
+              {t('setup.medalDeterminedByScore')}
+            </p>
+          </section>
+        )}
 
         {/* Special Setup Reminder */}
         {selectedChallenge?.specialSetup && (
@@ -102,16 +121,18 @@ export function SetupScreen() {
         )}
 
         {/* General Reminder */}
-        <section className="mb-8 p-4 bg-tree-100 rounded-lg border-2 border-tree-300">
-          <p className="text-tree-800">
-            {t('setup.cave3Reminder')}
-          </p>
-        </section>
+        {selectedChallenge && (
+          <section className="mb-8 p-4 bg-tree-100 rounded-lg border-2 border-tree-300">
+            <p className="text-tree-800">
+              {t('setup.cave3Reminder')}
+            </p>
+          </section>
+        )}
 
         {/* Start Button */}
         <button
           onClick={handleStartGame}
-          disabled={!selectedChallengeId || !selectedDifficulty}
+          disabled={!selectedChallengeId}
           className="btn-primary w-full text-xl py-4 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {t('setup.startGame')}
