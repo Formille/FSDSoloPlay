@@ -16,8 +16,8 @@ function getMissionImageUrl(history: GameHistory): string {
   const id = history.challengeId
   const suffix = history.isVictory ? history.difficulty : 'fail'
   return suffix === 'bronze'
-    ? `/mission_thumbnails/${id}.png`
-    : `/mission_thumbnails/${id}_${suffix}.png`
+    ? `/mission_thumbnails/${id}.webp`
+    : `/mission_thumbnails/${id}_${suffix}.webp`
 }
 
 /**

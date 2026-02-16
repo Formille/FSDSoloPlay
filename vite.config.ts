@@ -39,7 +39,9 @@ export default defineConfig({
         ]
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,json}'],
+        globPatterns: ['**/*.{js,css,html,ico,png,webp,svg,json}'],
+        globIgnores: ['**/mission_results_sprite.png'],
+        maximumFileSizeToCacheInBytes: 10 * 1024 * 1024, // 10MB (스프라이트 WebP ~9MB)
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,

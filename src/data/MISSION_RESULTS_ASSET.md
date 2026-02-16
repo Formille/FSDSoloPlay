@@ -8,10 +8,10 @@
 
 | 파일 | 설명 |
 |------|------|
-| `mission_results_sprite.png` | 통합 스프라이트 시트 이미지 (4열 × 15행) |
+| `mission_results_sprite.webp` | 통합 스프라이트 시트 이미지 (4열 × 15행, WebP) |
 | `mission_results_atlas.json` | 각 프레임의 좌표·크기 정보 (아틀라스) |
 | `build_sprite_sheet.py` | 원본 이미지에서 스프라이트 시트를 생성하는 빌드 스크립트 |
-| `scripts/extract_bronze_thumbnails.py` | 동메달 프레임 추출 → `public/mission_thumbnails/` (미션 선택 화면용) |
+| `scripts/extract_bronze_thumbnails.py` | 스프라이트에서 프레임 추출 → `public/mission_thumbnails/` (WebP, 미션 선택 화면용) |
 
 ## 네이밍 규칙 (원본 X_Y.png)
 
@@ -87,7 +87,7 @@ python build_sprite_sheet.py
 ## 압축 효과
 
 - **원본**: 60개 PNG (약 8~11 MB/개) → 총 약 600 MB
-- **통합 후**: 1개 스프라이트 시트 (약 64 MB) + 아틀라스 JSON
+- **통합 후**: 1개 스프라이트 시트 WebP (약 9 MB) + 아틀라스 JSON
 - **리사이즈**: 2400×1792 → 800×597 (면적 약 1/9)
 
 ## 라이선스·저작권
