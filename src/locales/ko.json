@@ -121,7 +121,7 @@
   },
   "verify": {
     "title": "기록 인증",
-    "cameraScan": "카메라 스캔",
+    "cameraScan": "기록 불러오기",
     "cameraScanDesc": "QR 코드를 카메라에 비춰주세요",
     "imageUpload": "이미지 불러오기",
     "imageUploadDesc": "인증서 이미지에서 QR 코드 인식",

@@ -1,14 +1,17 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import { ChevronDown, ChevronUp } from 'lucide-react'
 import { challenges } from '../data/challenges'
 import { ChallengeCard } from './ChallengeCard'
 import { useGameState } from '../hooks/useGameState'
 import { useGameStore } from '../store/gameStore'
+import { getBestResultsMap } from '../services/history'
 import { Difficulty } from '../types'
 import { LanguageSwitcher } from './LanguageSwitcher'
 
 export function SetupScreen() {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
+  const lang = i18n.language as 'ko' | 'en'
   const { startNewGame } = useGameState()
   const storedPlayerName = useGameStore(state => state.playerName)
   const setPlayerName = useGameStore(state => state.setPlayerName)
@@ -16,6 +19,8 @@ export function SetupScreen() {
   const [saveFeedback, setSaveFeedback] = useState(false)
   
   const [selectedChallengeId, setSelectedChallengeId] = useState<number | null>(null)
+  const [challengeListExpanded, setChallengeListExpanded] = useState(true)
+  const bestResultsMap = getBestResultsMap()
 
   useEffect(() => {
     setPlayerNameInput(storedPlayerName)
@@ -30,6 +35,11 @@ export function SetupScreen() {
   const selectedChallenge = selectedChallengeId
     ? challenges.find(c => c.id === selectedChallengeId)
     : null
+
+  const handleSelectChallenge = (id: number) => {
+    setSelectedChallengeId(id)
+    setChallengeListExpanded(false) // 선택 시 리스트 접기
+  }
 
   const handleStartGame = () => {
     if (selectedChallengeId) {
@@ -73,21 +83,39 @@ export function SetupScreen() {
           </div>
         </section>
 
-        {/* Challenge Selection */}
+        {/* Challenge Selection - 접기/펼치기 */}
         <section className="mb-8 animate-fade-in">
-          <h2 className="text-2xl font-semibold text-forest-800 mb-4">
-            {t('setup.selectChallenge')}
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {challenges.map(challenge => (
-              <ChallengeCard
-                key={challenge.id}
-                challenge={challenge}
-                selected={selectedChallengeId === challenge.id}
-                onClick={() => setSelectedChallengeId(challenge.id)}
-              />
-            ))}
-          </div>
+          <button
+            type="button"
+            onClick={() => setChallengeListExpanded(!challengeListExpanded)}
+            className="w-full flex items-center justify-between gap-4 py-3 px-4 rounded-xl bg-white border-2 border-forest-200 hover:border-forest-400 hover:bg-forest-50 transition-colors text-left"
+          >
+            <h2 className="text-2xl font-semibold text-forest-800">
+              {t('setup.selectChallenge')}
+              {selectedChallenge && (
+                <span className="ml-2 text-lg font-medium text-forest-600">
+                  — {selectedChallenge.id}. {selectedChallenge.title[lang]}
+                </span>
+              )}
+            </h2>
+            <span className="flex-shrink-0 text-forest-600">
+              {challengeListExpanded ? <ChevronUp size={28} /> : <ChevronDown size={28} />}
+            </span>
+          </button>
+
+          {challengeListExpanded && (
+            <div className="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {challenges.map(challenge => (
+                <ChallengeCard
+                  key={challenge.id}
+                  challenge={challenge}
+                  selected={selectedChallengeId === challenge.id}
+                  onClick={() => handleSelectChallenge(challenge.id)}
+                  bestResult={bestResultsMap.get(challenge.id) ?? null}
+                />
+              ))}
+            </div>
+          )}
         </section>
 
         {/* Game Setup Guide */}

@@ -10,6 +10,7 @@ import { saveGameHistory } from '../services/history'
 import { LanguageSwitcher } from './LanguageSwitcher'
 import { VictoryCertificate } from './VictoryCertificate'
 import { GameHistory } from '../types'
+import { getMissionThumbnailUrl } from '../utils/missionThumbnails'
 
 interface ScoringScreenProps {
   onGoToHistory?: () => void
@@ -114,72 +115,66 @@ export function ScoringScreen({ onGoToHistory }: ScoringScreenProps) {
 
         {/* Result Display */}
         {result && (
-          <section className="card mb-8">
-            <div className={`text-center p-8 rounded-lg ${
-              result.isVictory
-                ? 'bg-forest-100 border-4 border-forest-500'
-                : 'bg-moor-100 border-4 border-moor-500'
-            }`}>
-              <div className="text-6xl mb-4">
-                {result.isVictory ? '🎉' : '😢'}
-              </div>
-              <h2 className={`text-4xl font-bold mb-4 ${
-                result.isVictory ? 'text-forest-800' : 'text-moor-800'
-              }`}>
-                {result.isVictory ? t('scoring.victory') : t('scoring.defeat')}
-              </h2>
-              <div className="space-y-2 mb-6">
-                <p className="text-lg text-forest-700">
-                  {t('scoring.scoreAchieved')}: <strong>{result.score}점</strong>
-                </p>
-                {result.medal && (
-                  <div className="flex items-center justify-center gap-2">
-                    <span className="text-3xl">
-                      {result.medal === 'bronze' && '🥉'}
-                      {result.medal === 'silver' && '🥈'}
-                      {result.medal === 'gold' && '🥇'}
-                    </span>
-                    <p className="text-lg text-forest-700">
-                      {t(`setup.${result.medal}`)} 메달 획득!
-                    </p>
-                  </div>
-                )}
-                {result.requiredScore && (
-                  <p className="text-lg text-forest-700">
-                    {t('scoring.scoreRequired')}: <strong>{result.requiredScore}점</strong>
-                  </p>
-                )}
-              </div>
-              {result.isVictory && result.medal && (
-                <p className="text-xl text-forest-800 font-semibold">
-                  {t('scoring.victoryMessage', { difficulty: t(`setup.${result.medal}`) })}
-                </p>
-              )}
-              {!result.isVictory && result.medal === null && (
-                <p className="text-xl text-moor-800 font-semibold">
-                  {t('scoring.noMedalMessage')}
-                </p>
-              )}
-              {!result.isVictory && (
-                <p className="text-xl text-moor-800 font-semibold">
-                  {t('scoring.defeatMessage')}
-                </p>
-              )}
+          <section className="card mb-8 overflow-hidden p-0">
+            {/* 미션 이미지 (결과에 맞는 이미지) */}
+            <div className="w-full overflow-hidden rounded-t-xl">
+              <img
+                src={getMissionThumbnailUrl(challengeId, {
+                  difficulty: result.medal || 'bronze',
+                  isVictory: result.isVictory
+                })}
+                alt=""
+                className="w-full aspect-[4/3] object-cover bg-forest-100"
+                width={800}
+                height={597}
+              />
             </div>
 
-            <div className="mt-6 flex gap-4">
-              <button
-                onClick={() => setShowCertificate(true)}
-                className="btn-primary flex-1"
-              >
-                {t('certificate.title')}
-              </button>
-              <button
-                onClick={handleNewGame}
-                className="btn-secondary flex-1"
-              >
-                {t('setup.title')}
-              </button>
+            <div className="p-6">
+              <div className={`flex items-center gap-3 mb-4 ${
+                result.isVictory ? 'text-forest-800' : 'text-moor-800'
+              }`}>
+                <span className="text-4xl">
+                  {result.isVictory ? '🎉' : '😢'}
+                </span>
+                <div>
+                  <h2 className="text-2xl font-bold">
+                    {result.isVictory ? t('scoring.victory') : t('scoring.defeat')}
+                  </h2>
+                  <p className="text-lg font-semibold">
+                    {result.score}점
+                    {result.medal && (
+                      <span className="ml-2">
+                        {result.medal === 'bronze' && '🥉'}
+                        {result.medal === 'silver' && '🥈'}
+                        {result.medal === 'gold' && '🥇'}
+                        {t(`setup.${result.medal}`)} 메달
+                      </span>
+                    )}
+                  </p>
+                </div>
+              </div>
+
+              {result.requiredScore && (
+                <p className="text-forest-600 mb-4">
+                  {t('scoring.scoreRequired')}: {result.requiredScore}점
+                </p>
+              )}
+
+              <div className="flex gap-4">
+                <button
+                  onClick={() => setShowCertificate(true)}
+                  className="btn-primary flex-1"
+                >
+                  {t('certificate.title')}
+                </button>
+                <button
+                  onClick={handleNewGame}
+                  className="btn-secondary flex-1"
+                >
+                  {t('setup.title')}
+                </button>
+              </div>
             </div>
           </section>
         )}

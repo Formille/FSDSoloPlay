@@ -26,3 +26,6 @@ dist-ssr
 .env
 background.md
 dev_plan.md
+
+# 원본 PNG (WebP 변환본 사용)
+public/mission_results_sprite.png

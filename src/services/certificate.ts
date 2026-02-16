@@ -3,8 +3,25 @@ import { getChallengeById } from '../data/challenges'
 import { historiesToVerificationData, encodeToQRDataUrl } from './verification'
 import { getGameHistory } from './history'
 
+function loadImage(src: string): Promise<HTMLImageElement> {
+  return new Promise((resolve, reject) => {
+    const img = new Image()
+    img.onload = () => resolve(img)
+    img.onerror = () => reject(new Error(`Image load failed: ${src}`))
+    img.src = src
+  })
+}
+
+function getMissionImageUrl(history: GameHistory): string {
+  const id = history.challengeId
+  const suffix = history.isVictory ? history.difficulty : 'fail'
+  return suffix === 'bronze'
+    ? `/mission_thumbnails/${id}.png`
+    : `/mission_thumbnails/${id}_${suffix}.png`
+}
+
 /**
- * Canvas API를 사용한 인증 이미지 생성 (QR 포함)
+ * Canvas API를 사용한 인증 이미지 생성 (미션 이미지 배경 + QR 포함)
  */
 export function generateCertificate(
   history: GameHistory,
@@ -21,93 +38,108 @@ export function generateCertificate(
       return
     }
 
-    // 배경 그라데이션
-    const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height)
-    gradient.addColorStop(0, '#f0f4e8')
-    gradient.addColorStop(0.5, '#d9e4c8')
-    gradient.addColorStop(1, '#b8cc9a')
-    ctx.fillStyle = gradient
-    ctx.fillRect(0, 0, canvas.width, canvas.height)
+    const W = canvas.width
+    const H = canvas.height
 
-    // 제목
-    ctx.fillStyle = '#2d5016'
-    ctx.font = 'bold 48px Arial'
-    ctx.textAlign = 'center'
-    ctx.fillText('Forest Shuffle: Dartmoor', canvas.width / 2, 80)
-    
-    ctx.font = '32px Arial'
-    ctx.fillText(
-      language === 'ko' ? '솔로 도전 완료' : 'Solo Challenge Completed',
-      canvas.width / 2,
-      130
-    )
-
-    // 메달 아이콘
-    const medalEmoji = {
-      bronze: '🥉',
-      silver: '🥈',
-      gold: '🥇'
-    }[history.difficulty]
-    
-    ctx.font = '120px Arial'
-    ctx.fillText(medalEmoji, canvas.width / 2, 250)
-
-    // 도전 과제 정보
-    const challenge = getChallengeById(history.challengeId)
-    ctx.fillStyle = '#1f3a0f'
-    ctx.font = 'bold 36px Arial'
-    ctx.fillText(
-      challenge ? `${challenge.id}. ${challenge.title[language]}` : `Challenge ${history.challengeId}`,
-      canvas.width / 2,
-      350
-    )
-
-    // 점수
-    ctx.font = '28px Arial'
-    ctx.fillText(
-      `${language === 'ko' ? '점수' : 'Score'}: ${history.score}`,
-      canvas.width / 2,
-      420
-    )
-
-    // 난이도
-    const difficultyText = {
-      bronze: language === 'ko' ? '동메달' : 'Bronze',
-      silver: language === 'ko' ? '은메달' : 'Silver',
-      gold: language === 'ko' ? '금메달' : 'Gold'
-    }[history.difficulty]
-    
-    ctx.fillText(
-      `${language === 'ko' ? '난이도' : 'Difficulty'}: ${difficultyText}`,
-      canvas.width / 2,
-      470
-    )
-
-    // 날짜
-    const date = new Date(history.date)
-    const formattedDate = date.toLocaleDateString(
-      language === 'ko' ? 'ko-KR' : 'en-US',
-      { year: 'numeric', month: 'long', day: 'numeric' }
-    )
-    ctx.fillText(
-      `${language === 'ko' ? '날짜' : 'Date'}: ${formattedDate}`,
-      canvas.width / 2,
-      520
-    )
-
-    // 결과
-    ctx.font = 'bold 32px Arial'
-    ctx.fillStyle = history.isVictory ? '#2d5016' : '#63477a'
-    ctx.fillText(
-      history.isVictory
-        ? (language === 'ko' ? '승리!' : 'Victory!')
-        : (language === 'ko' ? '패배' : 'Defeat'),
-      canvas.width / 2,
-      600
-    )
-
-    // QR 코드 (gzip 압축된 인증 데이터 - 누적된 전체 플레이 기록 포함)
     try {
+      // 1. 배경: 미션+메달 이미지 (캔버스에 맞게 cover)
+      const bgUrl = getMissionImageUrl(history)
+      const bgImg = await loadImage(bgUrl)
+
+      const imgAspect = bgImg.width / bgImg.height
+      const canvasAspect = W / H
+      let sx = 0, sy = 0, sw = bgImg.width, sh = bgImg.height
+      if (imgAspect > canvasAspect) {
+        sw = bgImg.height * canvasAspect
+        sx = (bgImg.width - sw) / 2
+      } else {
+        sh = bgImg.width / canvasAspect
+        sy = (bgImg.height - sh) / 2
+      }
+      ctx.drawImage(bgImg, sx, sy, sw, sh, 0, 0, W, H)
+
+      // 2. 텍스트 영역 어두운 오버레이 (하단 ~30%만, 이미지가 덜 어두워지도록)
+      const overlayTop = H * 0.7
+      const overlayGradient = ctx.createLinearGradient(0, overlayTop, 0, H)
+      overlayGradient.addColorStop(0, 'rgba(0,0,0,0.15)')
+      overlayGradient.addColorStop(0.4, 'rgba(0,0,0,0.55)')
+      overlayGradient.addColorStop(1, 'rgba(0,0,0,0.8)')
+      ctx.fillStyle = overlayGradient
+      ctx.fillRect(0, overlayTop, W, H - overlayTop)
+
+      // 3. 상단 좌측: 도전 성공/실패 (테두리+그림자)
+      const successFailText = history.isVictory
+        ? (language === 'ko' ? '도전 성공' : 'Challenge Success')
+        : (language === 'ko' ? '도전 실패' : 'Challenge Failed')
+      ctx.font = 'bold 28px Arial'
+      ctx.textAlign = 'left'
+      ctx.strokeStyle = 'rgba(0,0,0,0.7)'
+      ctx.lineWidth = 4
+      ctx.strokeText(successFailText, 40, 50)
+      ctx.shadowColor = 'rgba(0,0,0,0.5)'
+      ctx.shadowBlur = 6
+      ctx.shadowOffsetX = 2
+      ctx.shadowOffsetY = 2
+      ctx.fillStyle = history.isVictory ? '#86efac' : '#fca5a5'
+      ctx.fillText(successFailText, 40, 50)
+      ctx.shadowColor = 'transparent'
+      ctx.shadowBlur = 0
+      ctx.shadowOffsetX = 0
+      ctx.shadowOffsetY = 0
+
+      // 4. 상단 우측: 메달 이모티콘 (상단·우측 간격 동일)
+      const medalEmoji = history.isVictory
+        ? { bronze: '🥉', silver: '🥈', gold: '🥇' }[history.difficulty]
+        : '❌'
+      const cornerGap = 70
+      ctx.font = '64px Arial'
+      ctx.textAlign = 'right'
+      ctx.fillText(medalEmoji, W - cornerGap, cornerGap)
+
+      // 5. 최하단 좌측: 미션 명 / XXX점 / YYYY년 MM월 DD일 - h시간 m분 플레이
+      const challenge = getChallengeById(history.challengeId)
+      const missionName = challenge
+        ? `${challenge.id}. ${challenge.title[language]}`
+        : `Challenge ${history.challengeId}`
+
+      const durationSec = history.duration ?? 0
+      const hours = Math.floor(durationSec / 3600)
+      const minutes = Math.floor((durationSec % 3600) / 60)
+      const durationStr =
+        language === 'ko'
+          ? `${hours}시간 ${minutes}분 플레이`
+          : `${hours}h ${minutes}m played`
+
+      const date = new Date(history.completedAt ? history.completedAt * 1000 : history.date)
+      const formattedDate =
+        language === 'ko'
+          ? `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`
+          : `${date.getFullYear()}/${String(date.getMonth() + 1).padStart(2, '0')}/${String(date.getDate()).padStart(2, '0')}`
+
+      const line1 = missionName
+      const line2 = `${medalEmoji} ${history.score}점`
+      const line3 = `${formattedDate} - ${durationStr}`
+
+      const leftX = 48
+      const lineHeight = 42
+      const bottomPadding = 48
+      let y = H - bottomPadding
+
+      ctx.textAlign = 'left'
+      ctx.fillStyle = '#ffffff'
+
+      ctx.font = '26px Arial'
+      ctx.fillText(line3, leftX, y)
+      y -= lineHeight
+
+      ctx.font = 'bold 28px Arial'
+      ctx.fillText(line2, leftX, y)
+      y -= lineHeight
+
+      ctx.font = 'bold 32px Arial'
+      ctx.fillText(line1, leftX, y)
+
+      // 6. QR 코드 (우측 하단)
       const allHistories = getGameHistory()
       const toTimestamp = (h: GameHistory) =>
         h.completedAt ?? Math.floor(new Date(h.date).getTime() / 1000)
@@ -121,21 +153,17 @@ export function generateCertificate(
       )
       const qrDataUrl = await encodeToQRDataUrl(verificationData)
 
-      const qrSize = 160
-      const qrX = canvas.width - qrSize - 40
-      const qrY = canvas.height - qrSize - 40
+      const qrSize = 140
+      const qrX = W - qrSize - 32
+      const qrY = H - qrSize - 32
 
-      const qrImg = new Image()
-      qrImg.onload = () => {
-        ctx.drawImage(qrImg, qrX, qrY, qrSize, qrSize)
-        const dataUrl = canvas.toDataURL('image/png')
-        resolve(dataUrl)
-      }
-      qrImg.onerror = () => reject(new Error('QR image load failed'))
-      qrImg.src = qrDataUrl
+      const qrImg = await loadImage(qrDataUrl)
+      ctx.drawImage(qrImg, qrX, qrY, qrSize, qrSize)
+
+      const dataUrl = canvas.toDataURL('image/png')
+      resolve(dataUrl)
     } catch (error) {
       reject(error)
     }
   })
 }
-

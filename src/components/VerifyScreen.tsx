@@ -4,6 +4,7 @@ import jsQR from 'jsqr'
 import { decompress } from '../services/verification'
 import { VerificationData } from '../types'
 import { challenges, getChallengeById } from '../data/challenges'
+import { MissionResultThumbnail } from './MissionResultThumbnail'
 
 interface VerifyScreenProps {
   onBack: () => void
@@ -277,6 +278,9 @@ export function VerifyScreen({ onBack }: VerifyScreenProps) {
                 <table className="w-full text-left">
                   <thead>
                     <tr className="bg-forest-100 border-b border-forest-200">
+                      <th className="px-4 py-3 font-semibold text-forest-800 w-16">
+                        {lang === 'ko' ? '' : ''}
+                      </th>
                       <th className="px-4 py-3 font-semibold text-forest-800">
                         {lang === 'ko' ? '도전과제' : 'Challenge'}
                       </th>
@@ -302,6 +306,14 @@ export function VerifyScreen({ onBack }: VerifyScreenProps) {
                           key={i}
                           className="border-b border-forest-100 last:border-b-0 hover:bg-forest-50/50"
                         >
+                          <td className="px-2 py-2 align-middle">
+                            <MissionResultThumbnail
+                              missionId={rec.c[0]}
+                              medalCode={rec.c[2]}
+                              width={64}
+                              height={48}
+                            />
+                          </td>
                           <td className="px-4 py-3 text-forest-800 font-medium">
                             {challenge
                               ? `${challenge.id}. ${challenge.title[lang]}`

@@ -8,7 +8,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
+      includeAssets: ['icons/icon-192x192.png', 'icons/icon-512x512.png'],
       manifest: {
         name: 'Forest Shuffle: Dartmoor Solo Assistant',
         short_name: 'Dartmoor Solo',
@@ -17,6 +17,8 @@ export default defineConfig({
         background_color: '#f0f4e8',
         display: 'standalone',
         orientation: 'portrait',
+        start_url: '/',
+        scope: '/',
         icons: [
           {
             src: 'icons/icon-192x192.png',

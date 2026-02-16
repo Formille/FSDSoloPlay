@@ -5,6 +5,9 @@ import { AutomaActionDisplay } from './AutomaActionDisplay'
 import { LanguageSwitcher } from './LanguageSwitcher'
 import { useGameStore } from '../store/gameStore'
 
+/** 디버그: 나온 카드/남은 카드 ID 목록 표시 */
+const SHOW_DEBUG = false
+
 export function PlayScreen() {
   const { t } = useTranslation()
   const {
@@ -93,54 +96,48 @@ export function PlayScreen() {
         </div>
       </div>
 
-      {/* 화면 하단 고정: 나온 카드/남은 카드 + 버튼 영역 */}
+      {/* 화면 하단 고정: 버튼 영역 */}
       <div className="fixed bottom-0 left-0 right-0 bg-forest-50 border-t border-forest-200 z-40 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
-        {/* 나온 카드 (이번 섞기 이후) / 남은 카드 ID 목록 - 하단 앵커 */}
-        <div className="max-w-2xl mx-auto px-4 pt-4">
-          <section className="card bg-forest-50 border-2 border-forest-200">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <h3 className="text-sm font-semibold text-forest-700 mb-2">
-                  {t('play.shownCards')}
-                </h3>
-                <p className="text-forest-600 text-sm break-all">
-                  {(() => {
-                    const list = [...shownCardsSinceShuffle, currentAutomaCard?.id].filter(Boolean)
-                    return list.length > 0 ? list.join(', ') : '-'
-                  })()}
-                </p>
-              </div>
-              <div>
-                <h3 className="text-sm font-semibold text-forest-700 mb-2">
-                  {t('play.remainingCardsIds')}
-                </h3>
-                <div className="grid grid-cols-5 gap-1.5">
-                  {(() => {
-                    const shownIds = new Set([
-                      ...automaDiscard.map((c) => c.id),
-                      currentAutomaCard?.id
-                    ].filter(Boolean))
-                    return Array.from({ length: 20 }, (_, i) => i + 1).map((id) => {
+        {SHOW_DEBUG && (
+          <div className="max-w-2xl mx-auto px-4 pt-4">
+            <section className="card bg-forest-50 border-2 border-forest-200">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <h3 className="text-sm font-semibold text-forest-700 mb-2">
+                    {t('play.shownCards')}
+                  </h3>
+                  <p className="text-forest-600 text-sm break-all">
+                    {[...shownCardsSinceShuffle, currentAutomaCard?.id].filter(Boolean).join(', ') || '-'}
+                  </p>
+                </div>
+                <div>
+                  <h3 className="text-sm font-semibold text-forest-700 mb-2">
+                    {t('play.remainingCardsIds')}
+                  </h3>
+                  <div className="grid grid-cols-5 gap-1.5">
+                    {Array.from({ length: 20 }, (_, i) => i + 1).map((id) => {
+                      const shownIds = new Set([
+                        ...automaDiscard.map((c) => c.id),
+                        currentAutomaCard?.id
+                      ].filter(Boolean))
                       const isShown = shownIds.has(id)
                       return (
                         <span
                           key={id}
                           className={`text-center py-2 px-1 rounded text-sm font-medium ${
-                            isShown
-                              ? 'text-forest-400 opacity-40'
-                              : 'text-forest-700 bg-forest-100'
+                            isShown ? 'text-forest-400 opacity-40' : 'text-forest-700 bg-forest-100'
                           }`}
                         >
                           {id}
                         </span>
                       )
-                    })
-                  })()}
+                    })}
+                  </div>
                 </div>
               </div>
-            </div>
-          </section>
-        </div>
+            </section>
+          </div>
+        )}
         <div className="max-w-2xl mx-auto p-4 pb-6 space-y-3">
           <button
             onClick={() => proceedToNextAction()}

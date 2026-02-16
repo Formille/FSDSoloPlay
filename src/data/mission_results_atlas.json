@@ -1,0 +1,548 @@
+{
+  "meta": {
+    "width": 450,
+    "height": 1259
+  },
+  "frames": {
+    "1_fail": {
+      "x": 0,
+      "y": 0,
+      "w": 112,
+      "h": 83,
+      "mission": 1,
+      "result": 0,
+      "result_name": "fail"
+    },
+    "1_bronze": {
+      "x": 112,
+      "y": 0,
+      "w": 112,
+      "h": 83,
+      "mission": 1,
+      "result": 1,
+      "result_name": "bronze"
+    },
+    "1_silver": {
+      "x": 224,
+      "y": 0,
+      "w": 112,
+      "h": 83,
+      "mission": 1,
+      "result": 2,
+      "result_name": "silver"
+    },
+    "1_gold": {
+      "x": 336,
+      "y": 0,
+      "w": 112,
+      "h": 83,
+      "mission": 1,
+      "result": 3,
+      "result_name": "gold"
+    },
+    "2_fail": {
+      "x": 0,
+      "y": 83,
+      "w": 112,
+      "h": 83,
+      "mission": 2,
+      "result": 0,
+      "result_name": "fail"
+    },
+    "2_bronze": {
+      "x": 112,
+      "y": 83,
+      "w": 112,
+      "h": 83,
+      "mission": 2,
+      "result": 1,
+      "result_name": "bronze"
+    },
+    "2_silver": {
+      "x": 224,
+      "y": 83,
+      "w": 112,
+      "h": 83,
+      "mission": 2,
+      "result": 2,
+      "result_name": "silver"
+    },
+    "2_gold": {
+      "x": 336,
+      "y": 83,
+      "w": 112,
+      "h": 83,
+      "mission": 2,
+      "result": 3,
+      "result_name": "gold"
+    },
+    "3_fail": {
+      "x": 0,
+      "y": 166,
+      "w": 112,
+      "h": 83,
+      "mission": 3,
+      "result": 0,
+      "result_name": "fail"
+    },
+    "3_bronze": {
+      "x": 112,
+      "y": 166,
+      "w": 112,
+      "h": 83,
+      "mission": 3,
+      "result": 1,
+      "result_name": "bronze"
+    },
+    "3_silver": {
+      "x": 224,
+      "y": 166,
+      "w": 112,
+      "h": 83,
+      "mission": 3,
+      "result": 2,
+      "result_name": "silver"
+    },
+    "3_gold": {
+      "x": 336,
+      "y": 166,
+      "w": 112,
+      "h": 83,
+      "mission": 3,
+      "result": 3,
+      "result_name": "gold"
+    },
+    "4_fail": {
+      "x": 0,
+      "y": 249,
+      "w": 112,
+      "h": 83,
+      "mission": 4,
+      "result": 0,
+      "result_name": "fail"
+    },
+    "4_bronze": {
+      "x": 112,
+      "y": 249,
+      "w": 112,
+      "h": 83,
+      "mission": 4,
+      "result": 1,
+      "result_name": "bronze"
+    },
+    "4_silver": {
+      "x": 224,
+      "y": 249,
+      "w": 112,
+      "h": 83,
+      "mission": 4,
+      "result": 2,
+      "result_name": "silver"
+    },
+    "4_gold": {
+      "x": 336,
+      "y": 249,
+      "w": 112,
+      "h": 83,
+      "mission": 4,
+      "result": 3,
+      "result_name": "gold"
+    },
+    "5_fail": {
+      "x": 0,
+      "y": 332,
+      "w": 112,
+      "h": 83,
+      "mission": 5,
+      "result": 0,
+      "result_name": "fail"
+    },
+    "5_bronze": {
+      "x": 112,
+      "y": 332,
+      "w": 112,
+      "h": 83,
+      "mission": 5,
+      "result": 1,
+      "result_name": "bronze"
+    },
+    "5_silver": {
+      "x": 224,
+      "y": 332,
+      "w": 112,
+      "h": 83,
+      "mission": 5,
+      "result": 2,
+      "result_name": "silver"
+    },
+    "5_gold": {
+      "x": 336,
+      "y": 332,
+      "w": 112,
+      "h": 83,
+      "mission": 5,
+      "result": 3,
+      "result_name": "gold"
+    },
+    "6_fail": {
+      "x": 0,
+      "y": 415,
+      "w": 112,
+      "h": 83,
+      "mission": 6,
+      "result": 0,
+      "result_name": "fail"
+    },
+    "6_bronze": {
+      "x": 112,
+      "y": 415,
+      "w": 112,
+      "h": 83,
+      "mission": 6,
+      "result": 1,
+      "result_name": "bronze"
+    },
+    "6_silver": {
+      "x": 224,
+      "y": 415,
+      "w": 112,
+      "h": 83,
+      "mission": 6,
+      "result": 2,
+      "result_name": "silver"
+    },
+    "6_gold": {
+      "x": 336,
+      "y": 415,
+      "w": 112,
+      "h": 83,
+      "mission": 6,
+      "result": 3,
+      "result_name": "gold"
+    },
+    "7_fail": {
+      "x": 0,
+      "y": 498,
+      "w": 112,
+      "h": 83,
+      "mission": 7,
+      "result": 0,
+      "result_name": "fail"
+    },
+    "7_bronze": {
+      "x": 112,
+      "y": 498,
+      "w": 112,
+      "h": 83,
+      "mission": 7,
+      "result": 1,
+      "result_name": "bronze"
+    },
+    "7_silver": {
+      "x": 224,
+      "y": 498,
+      "w": 112,
+      "h": 83,
+      "mission": 7,
+      "result": 2,
+      "result_name": "silver"
+    },
+    "7_gold": {
+      "x": 336,
+      "y": 498,
+      "w": 112,
+      "h": 83,
+      "mission": 7,
+      "result": 3,
+      "result_name": "gold"
+    },
+    "8_fail": {
+      "x": 0,
+      "y": 581,
+      "w": 112,
+      "h": 83,
+      "mission": 8,
+      "result": 0,
+      "result_name": "fail"
+    },
+    "8_bronze": {
+      "x": 112,
+      "y": 581,
+      "w": 112,
+      "h": 83,
+      "mission": 8,
+      "result": 1,
+      "result_name": "bronze"
+    },
+    "8_silver": {
+      "x": 224,
+      "y": 581,
+      "w": 112,
+      "h": 83,
+      "mission": 8,
+      "result": 2,
+      "result_name": "silver"
+    },
+    "8_gold": {
+      "x": 336,
+      "y": 581,
+      "w": 112,
+      "h": 83,
+      "mission": 8,
+      "result": 3,
+      "result_name": "gold"
+    },
+    "9_fail": {
+      "x": 0,
+      "y": 664,
+      "w": 112,
+      "h": 83,
+      "mission": 9,
+      "result": 0,
+      "result_name": "fail"
+    },
+    "9_bronze": {
+      "x": 112,
+      "y": 664,
+      "w": 112,
+      "h": 83,
+      "mission": 9,
+      "result": 1,
+      "result_name": "bronze"
+    },
+    "9_silver": {
+      "x": 224,
+      "y": 664,
+      "w": 112,
+      "h": 83,
+      "mission": 9,
+      "result": 2,
+      "result_name": "silver"
+    },
+    "9_gold": {
+      "x": 336,
+      "y": 664,
+      "w": 112,
+      "h": 83,
+      "mission": 9,
+      "result": 3,
+      "result_name": "gold"
+    },
+    "10_fail": {
+      "x": 0,
+      "y": 747,
+      "w": 112,
+      "h": 83,
+      "mission": 10,
+      "result": 0,
+      "result_name": "fail"
+    },
+    "10_bronze": {
+      "x": 112,
+      "y": 747,
+      "w": 112,
+      "h": 83,
+      "mission": 10,
+      "result": 1,
+      "result_name": "bronze"
+    },
+    "10_silver": {
+      "x": 224,
+      "y": 747,
+      "w": 112,
+      "h": 83,
+      "mission": 10,
+      "result": 2,
+      "result_name": "silver"
+    },
+    "10_gold": {
+      "x": 336,
+      "y": 747,
+      "w": 112,
+      "h": 83,
+      "mission": 10,
+      "result": 3,
+      "result_name": "gold"
+    },
+    "11_fail": {
+      "x": 0,
+      "y": 830,
+      "w": 112,
+      "h": 83,
+      "mission": 11,
+      "result": 0,
+      "result_name": "fail"
+    },
+    "11_bronze": {
+      "x": 112,
+      "y": 830,
+      "w": 112,
+      "h": 83,
+      "mission": 11,
+      "result": 1,
+      "result_name": "bronze"
+    },
+    "11_silver": {
+      "x": 224,
+      "y": 830,
+      "w": 112,
+      "h": 83,
+      "mission": 11,
+      "result": 2,
+      "result_name": "silver"
+    },
+    "11_gold": {
+      "x": 336,
+      "y": 830,
+      "w": 112,
+      "h": 83,
+      "mission": 11,
+      "result": 3,
+      "result_name": "gold"
+    },
+    "12_fail": {
+      "x": 0,
+      "y": 913,
+      "w": 112,
+      "h": 83,
+      "mission": 12,
+      "result": 0,
+      "result_name": "fail"
+    },
+    "12_bronze": {
+      "x": 112,
+      "y": 913,
+      "w": 112,
+      "h": 83,
+      "mission": 12,
+      "result": 1,
+      "result_name": "bronze"
+    },
+    "12_silver": {
+      "x": 224,
+      "y": 913,
+      "w": 112,
+      "h": 83,
+      "mission": 12,
+      "result": 2,
+      "result_name": "silver"
+    },
+    "12_gold": {
+      "x": 336,
+      "y": 913,
+      "w": 112,
+      "h": 83,
+      "mission": 12,
+      "result": 3,
+      "result_name": "gold"
+    },
+    "13_fail": {
+      "x": 0,
+      "y": 996,
+      "w": 112,
+      "h": 83,
+      "mission": 13,
+      "result": 0,
+      "result_name": "fail"
+    },
+    "13_bronze": {
+      "x": 112,
+      "y": 996,
+      "w": 112,
+      "h": 83,
+      "mission": 13,
+      "result": 1,
+      "result_name": "bronze"
+    },
+    "13_silver": {
+      "x": 224,
+      "y": 996,
+      "w": 112,
+      "h": 83,
+      "mission": 13,
+      "result": 2,
+      "result_name": "silver"
+    },
+    "13_gold": {
+      "x": 336,
+      "y": 996,
+      "w": 112,
+      "h": 83,
+      "mission": 13,
+      "result": 3,
+      "result_name": "gold"
+    },
+    "14_fail": {
+      "x": 0,
+      "y": 1079,
+      "w": 112,
+      "h": 83,
+      "mission": 14,
+      "result": 0,
+      "result_name": "fail"
+    },
+    "14_bronze": {
+      "x": 112,
+      "y": 1079,
+      "w": 112,
+      "h": 83,
+      "mission": 14,
+      "result": 1,
+      "result_name": "bronze"
+    },
+    "14_silver": {
+      "x": 224,
+      "y": 1079,
+      "w": 112,
+      "h": 83,
+      "mission": 14,
+      "result": 2,
+      "result_name": "silver"
+    },
+    "14_gold": {
+      "x": 336,
+      "y": 1079,
+      "w": 112,
+      "h": 83,
+      "mission": 14,
+      "result": 3,
+      "result_name": "gold"
+    },
+    "15_fail": {
+      "x": 0,
+      "y": 1162,
+      "w": 112,
+      "h": 83,
+      "mission": 15,
+      "result": 0,
+      "result_name": "fail"
+    },
+    "15_bronze": {
+      "x": 112,
+      "y": 1162,
+      "w": 112,
+      "h": 83,
+      "mission": 15,
+      "result": 1,
+      "result_name": "bronze"
+    },
+    "15_silver": {
+      "x": 224,
+      "y": 1162,
+      "w": 112,
+      "h": 83,
+      "mission": 15,
+      "result": 2,
+      "result_name": "silver"
+    },
+    "15_gold": {
+      "x": 336,
+      "y": 1162,
+      "w": 112,
+      "h": 83,
+      "mission": 15,
+      "result": 3,
+      "result_name": "gold"
+    }
+  }
+}
